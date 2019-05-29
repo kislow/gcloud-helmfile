@@ -23,8 +23,7 @@ To use this in a [GitLab CI Pipeline](https://docs.gitlab.com/ee/ci/) add the fo
 ```yaml
 deploy:
   stage: deploy
-  image:
-    name: axoom/gcloud-helmfile
+  image: axoom/gcloud-helmfile
   script:
     - /entrypoint.sh
   variables:

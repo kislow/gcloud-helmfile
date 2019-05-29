@@ -1,15 +1,22 @@
-FROM google/cloud-sdk:246.0.0-alpine
+FROM google/cloud-sdk:246.0.0
 
-RUN apk add --no-cache ca-certificates git bash curl
-RUN gcloud components install beta kubectl
+# Install 0install
+RUN apt-get update && apt-get install -y --no-install-recommends 0install-core
 
-RUN curl --silent --fail --location https://storage.googleapis.com/kubernetes-helm/helm-v2.14.0-linux-amd64.tar.gz | tar zx && \
-    mv /linux-amd64/helm /usr/local/bin/
-RUN helm init --client-only && \
-    helm plugin install https://github.com/databus23/helm-diff
+# Drop root rights
+RUN useradd -m user
+USER user
+WORKDIR /home/user
+ENV PATH="/home/user/bin:${PATH}"
 
-RUN curl --silent --fail --location --output /usr/local/bin/helmfile https://github.com/roboll/helmfile/releases/download/v0.64.1/helmfile_linux_amd64 && \
-    chmod +x /usr/local/bin/helmfile
+# Install helm and helm-autoversion
+RUN 0install add helm http://assets.axoom.cloud/tools/helm-autoversion.xml
+RUN 0install run --version 2.14.0 http://repo.roscidus.com/kubernetes/helm init --client-only
 
+# Install helmfile
+RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.67.0/helmfile_linux_amd64 -o bin/helmfile \
+ && chmod +x bin/helmfile
+
+# Install entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

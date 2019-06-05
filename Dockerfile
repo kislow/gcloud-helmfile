@@ -9,9 +9,9 @@ USER user
 WORKDIR /home/user
 ENV PATH="/home/user/bin:${PATH}"
 
-# Install helm and helm-autoversion
+# Install helm-autoversion
 RUN 0install add helm http://assets.axoom.cloud/tools/helm-autoversion.xml
-RUN 0install run --version 2.14.0 http://repo.roscidus.com/kubernetes/helm init --client-only
+RUN helm init --client-only
 
 # Install helmfile
 RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.67.0/helmfile_linux_amd64 -o bin/helmfile \

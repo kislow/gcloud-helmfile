@@ -17,6 +17,6 @@ RUN helm init --client-only
 RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.67.0/helmfile_linux_amd64 -o bin/helmfile \
  && chmod +x bin/helmfile
 
-# Install entrypoint script
-COPY entrypoint.sh /entrypoint.sh
+# Install sscript
+COPY *.sh /
 ENTRYPOINT ["/entrypoint.sh"]

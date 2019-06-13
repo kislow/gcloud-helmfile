@@ -10,7 +10,7 @@ WORKDIR /home/user
 ENV PATH="/home/user/bin:${PATH}"
 
 # Install helm-autoversion
-RUN 0install add helm http://assets.axoom.cloud/tools/helm-autoversion.xml
+RUN 0install add helm --version 0.3 http://assets.axoom.cloud/tools/helm-autoversion.xml
 RUN helm init --client-only
 
 # Install helmfile

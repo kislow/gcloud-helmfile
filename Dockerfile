@@ -14,7 +14,7 @@ RUN 0install add helm --version 0.3 http://assets.axoom.cloud/tools/helm-autover
 RUN helm init --client-only
 
 # Install helmfile
-RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.76.2/helmfile_linux_amd64 -o bin/helmfile \
+RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.78.0/helmfile_linux_amd64 -o bin/helmfile \
  && chmod +x bin/helmfile
 
 # Install sscript

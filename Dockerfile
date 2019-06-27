@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:246.0.0
+FROM google/cloud-sdk:252.0.0
 
 # Install 0install
 RUN apt-get update && apt-get install -y --no-install-recommends 0install-core jq

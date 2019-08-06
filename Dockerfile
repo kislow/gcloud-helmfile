@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:252.0.0
+FROM google/cloud-sdk:256.0.0
 
 # Install 0install
 RUN apt-get update && apt-get install -y --no-install-recommends 0install-core jq
@@ -14,7 +14,7 @@ RUN 0install add helm --version 0.3 http://assets.axoom.cloud/tools/helm-autover
 RUN helm init --client-only
 
 # Install helmfile
-RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.79.3/helmfile_linux_amd64 -o bin/helmfile \
+RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.80.2/helmfile_linux_amd64 -o bin/helmfile \
  && chmod +x bin/helmfile
 
 # Install sscript

@@ -8,6 +8,10 @@ if [ -z "$DATABASE_PASSWORD" ]; then
   echo "Environment variable DATABASE_PASSWORD not set!"
   exit 1
 fi
+if [ -z "$PGPASSWORD" ]; then
+  echo "Environment variable PGPASSWORD not set!"
+  exit 1
+fi
 
 # Run Cloud SQL Proxy in background
 trap "kill 0" EXIT

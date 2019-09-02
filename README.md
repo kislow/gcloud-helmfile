@@ -4,7 +4,7 @@
 
 This combines [gcloud](https://cloud.google.com/sdk/) and [helmfile](https://github.com/roboll/helmfile) in a single Docker image to enable easy deployments to Google Kubernetes Engine.
 
-Uses [helm-autoversion](https://github.com/AXOOM/helm-autoversion) to automatically download a version of [Helm](https://github.com/helm/helm) that matches the version of Tiller on the cluster.
+Uses [0install](http://0install.net) to automatically download a version of [Helm](https://github.com/helm/helm) that matches the version of Tiller on the cluster.
 
 You can configure it by setting the following environment variables:
 

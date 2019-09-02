@@ -1,7 +1,11 @@
-FROM google/cloud-sdk:256.0.0
+FROM google/cloud-sdk:260.0.0
+RUN apt-get install -y --no-install-recommends unzip jq
 
 # Install 0install
-RUN apt-get update && apt-get install -y --no-install-recommends 0install-core jq
+ENV ZEROINSTALL_VERSION 2.14.1
+RUN curl --silent --fail --location https://downloads.sourceforge.net/project/zero-install/0install/$ZEROINSTALL_VERSION/0install-linux-x86_64-$ZEROINSTALL_VERSION.tar.bz2 | tar xj
+RUN 0install-linux-x86_64-$ZEROINSTALL_VERSION/install.sh local
+RUN rm -rf 0install-linux-x86_64-$ZEROINSTALL_VERSION/
 
 # Drop root rights
 RUN useradd -m user
@@ -9,14 +13,14 @@ USER user
 WORKDIR /home/user
 ENV PATH="/home/user/bin:${PATH}"
 
-# Install helm-autoversion
-RUN 0install add helm --version 0.3 http://assets.axoom.cloud/tools/helm-autoversion.xml
+# Install helm with helm-autoversion
+RUN 0install add helm http://repo.roscidus.com/kubernetes/helm-autoversion
+RUN 0install add-feed http://repo.roscidus.com/kubernetes/helm http://repo.roscidus.com/kubernetes/helm-autoversion
 RUN helm init --client-only
 
 # Install helmfile
-RUN curl --silent --fail --location https://github.com/roboll/helmfile/releases/download/v0.80.2/helmfile_linux_amd64 -o bin/helmfile \
- && chmod +x bin/helmfile
+RUN 0install add helmfile http://repo.roscidus.com/kubernetes/helmfile
 
-# Install sscript
+# Install scripts
 COPY *.sh /
 ENTRYPOINT ["/entrypoint.sh"]

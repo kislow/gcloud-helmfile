@@ -15,6 +15,5 @@ if [ ! -f ~/.kube/config ]; then
     exit 1
   fi
   gcloud auth activate-service-account --key-file "$GOOGLE_APPLICATION_CREDENTIALS"
-  gcloud config set project "$GCP_PROJECT"
   gcloud beta container clusters get-credentials "$CLUSTER_NAME" --region "${CLUSTER_REGION:-europe-west3}" --project "$GCP_PROJECT"
 fi

@@ -15,7 +15,7 @@ fi
 
 # Run Cloud SQL Proxy in background
 trap "kill 0" EXIT
-cloud_sql_proxy -instances=$GCP_PROJECT:${CLUSTER_REGION:-europe-west3}:$CLUSTER_NAME=tcp:5432 &
+kubectl port-forward -n cloud-sql svc/cloud-sql 5432 &
 sleep 2 # Short delay to allow for connection to be established
 
 # Try to create database and username; ignore failure in case they already exist

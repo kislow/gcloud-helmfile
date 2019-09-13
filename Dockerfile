@@ -21,9 +21,6 @@ RUN helm init --client-only
 # Install helmfile
 RUN 0install add helmfile http://repo.roscidus.com/kubernetes/helmfile
 
-# Install Cloud SQL Proxy
-RUN 0install add cloud_sql_proxy http://repo.roscidus.com/google/cloudsql-proxy
-
 # Install scripts
 COPY *.sh /
 ENTRYPOINT ["/entrypoint.sh"]

@@ -15,8 +15,9 @@ fi
 
 # Run Cloud SQL Proxy in background
 trap "kill 0" EXIT
+kubectl version > /dev/null # Ensure auth token is fresh (avoids timeouts)
 kubectl port-forward -n cloud-sql svc/cloud-sql 5432 &
-sleep 2 # Short delay to allow for connection to be established
+sleep 3 # Wait for connection to be established
 
 # Try to create database and username; ignore failure in case they already exist
 psql --host=127.0.0.1 --user postgres --command="CREATE DATABASE \"$DATABASE_NAME\";" || true

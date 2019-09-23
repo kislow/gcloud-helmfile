@@ -13,8 +13,7 @@ if [ -z "$PGPASSWORD" ]; then
   exit 1
 fi
 
-# Run Cloud SQL Proxy in background
-trap "kill 0" EXIT
+# Establish connection to Cloud SQL
 kubectl version > /dev/null # Ensure auth token is fresh (avoids timeouts)
 kubectl port-forward -n cloud-sql svc/cloud-sql 5432 &
 sleep 3 # Wait for connection to be established
@@ -25,3 +24,6 @@ psql --host=127.0.0.1 --user postgres --command="CREATE USER \"$DATABASE_NAME\";
 
 # Update user password and privileges
 psql --host=127.0.0.1 --user=postgres --command="ALTER USER \"$DATABASE_NAME\" WITH PASSWORD '$DATABASE_PASSWORD'; GRANT ALL PRIVILEGES ON DATABASE \"$DATABASE_NAME\" TO \"$DATABASE_NAME\";"
+
+# Close connection to Cloud SQL
+kill $!

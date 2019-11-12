@@ -7,9 +7,11 @@ USER user
 WORKDIR /home/user
 ENV PATH="/home/user/bin:${PATH}"
 
-# Install helm with helm-autoversion
-RUN 0install add helm http://repo.roscidus.com/kubernetes/helm-autoversion
+# Setup Helm with helm-autoversion (pre-cache common versions)
+RUN 0install download --version=2.15.2 http://repo.roscidus.com/kubernetes/helm
+RUN 0install download --version=2.16.0 http://repo.roscidus.com/kubernetes/helm
 RUN 0install add-feed http://repo.roscidus.com/kubernetes/helm http://repo.roscidus.com/kubernetes/helm-autoversion
+RUN 0install add helm http://repo.roscidus.com/kubernetes/helm
 RUN helm init --client-only
 
 # Install helmfile

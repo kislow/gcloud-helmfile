@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:270.0.0
+FROM google/cloud-sdk:271.0.0
 RUN apt-get install -y --no-install-recommends 0install-core unzip jq postgresql-client
 
 # Drop root rights

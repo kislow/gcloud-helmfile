@@ -11,7 +11,7 @@ ENV PATH="/home/user/bin:${PATH}"
 RUN 0install download https://apps.0install.net/kubernetes/helm.xml --version 2.14.3
 RUN 0install download https://apps.0install.net/kubernetes/helm.xml --version 2.15.2
 RUN 0install download https://apps.0install.net/kubernetes/helm.xml --version 2.16.1
-RUN 0install add helm https://apps.0install.net/kubernetes/helm.xml --version 2.14..!2.16.2
+RUN 0install add helm https://apps.0install.net/kubernetes/helm.xml --version 2..!3
 RUN 0install add-feed https://apps.0install.net/kubernetes/helm.xml https://apps.0install.net/kubernetes/helm-autoversion.xml
 RUN helm init --client-only
 
